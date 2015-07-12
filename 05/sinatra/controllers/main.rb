@@ -4,14 +4,17 @@ get "/" do
   erb :"main/homepage"
 end
 
-get "tasks/create_new" do 
-  
+get "/tasks/create_new" do 
+  @task = Task.new(params["task"])
+  @task.save_record
+  return "#{@task.id}-#{@task.content}"
+
 end
 
 
 get "/tasks/:method/:task_id" do
   task_id = params["task_id"].to_i
-  @task = Task.find(task_id)
+  @task = Task.create_from_database(task_id)
   @next_response = @task.done_in_english
   # run the method on the task
   @task.method(params["method"]).call
