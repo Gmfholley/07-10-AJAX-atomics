@@ -2,8 +2,11 @@
   <% @tasks.each do |task| %>
     <li class="task<%= " finished" if task.done %>" id="task<%= task.id %>">
       <%= task.content %>
-    
-      <% if !task.done %>
+      <% if task.done %>
+        <a data-task-id="<%= task.id %>" href="/tasks/mark_as_undone/<%= task.id %>" class="done_link">
+          Mark Undone
+        </a>
+      <% else %>
         <a data-task-id="<%= task.id %>" href="/tasks/mark_as_done/<%= task.id %>" class="done_link">
           Mark Done
         </a>

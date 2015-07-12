@@ -26,6 +26,6 @@ class Task
   # Mark a task as "done" in the database.
   def mark_as_undone
     CONNECTION.execute("UPDATE tasks SET done = 0 WHERE id = #{self.id}")
-    self.done = true
+    self.done = false
   end
 end
