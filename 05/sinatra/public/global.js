@@ -54,6 +54,7 @@ function mark_done_or_undone(event){
   
   done_request.addEventListener("loadstart", function(){
     console.log("Starting to " + done_or_undone(link) + " for " + database_id);
+    
   });
   
   done_request.addEventListener("load", function(){
@@ -65,8 +66,60 @@ function mark_done_or_undone(event){
   done_request.send();
 }
 
+// returns the content of the new-task input tag
+//
+// returns a String
+function new_task_content(){
+  return document.getElementById("new-task").value;
+}
+
+// To add a new element
+
+// var para = document.createElement("p");
+//
+// To add text to the <p> element, you must create a text node first. This code creates a text node:
+// var node = document.createTextNode("This is a new paragraph.");
+//
+// Then you must append the text node to the <p> element:
+// para.appendChild(node);
+//
+// Finally you must append the new element to an existing element.
+//
+// This code finds an existing element:
+// var element = document.getElementById("div1");
+//
+// This code appends the new element to the existing element:
+// element.appendChild(para);
 
 
+function add_new_html_task(id, content){
+  var li = document.createElement("li");
+  var a = document.createElement("a");
+  a.setAttribute("href", new_done_or_undone_link("done", id));
+  a.setAttribute("data-task-id", id);
+  a.classList.add("done_link");
+  a.innerHTML= "Mark As " + capitalize("done");
+  li.innerHTML=content
+  li.classList.add("task");
+  li.id = "task" + id;
+  li.appendChild(a);
+  document.getElementById("task-list").appendChild(li);
+}
+
+function create_new_task(){
+  var create_new_task = new XMLHttpRequest();
+  create_new_task.open("get", "/tasks/create_new?content=" + new_task_content());
+  create_new_task.addEventListener("loadstart", function(){
+    document.getElementsByTagName("body")[0].style.cursor=wait;
+  });
+  
+  create_new_task.addEventListener("load", function(){
+    add_new_html_task(this.response.split("-")[0], this.response.split("-")[1]);
+  });
+  
+  create_new_task.send();
+  
+}
 
 
 
