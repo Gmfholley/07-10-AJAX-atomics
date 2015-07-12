@@ -1,7 +1,10 @@
 require_relative "../database_class_methods.rb"
+require_relative "../database_instance_methods.rb"
+
 
 class Task
   extend DatabaseClassMethods
+  include DatabaseInstanceMethods
   
   attr_reader :id
   attr_accessor :content, :done
