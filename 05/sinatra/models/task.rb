@@ -6,7 +6,7 @@ class Task
   extend DatabaseClassMethods
   include DatabaseInstanceMethods
   
-  attr_reader :id
+  attr_reader :id, :errors
   attr_accessor :content, :done
   
   def initialize(task_options={})
@@ -18,14 +18,22 @@ class Task
     else
       @done = true
     end
+    @errors=[]
   end
   
+  # returns a String converting Boolean to English
+  #
+  # returns String
   def done_in_english
     if @done
       "done"
     else
       "undone"
     end
+  end
+  
+  def database_field_names
+    ["content"]
   end
   
   # Mark a task as "done" in the database.
