@@ -1,14 +1,19 @@
 var myLink = document.getElementById("clicker");
 
+function get_text_from_input_field(id){
+  return document.getElementById(id).value;
+}
+
+
 var handleTheClick = function(event){
   var thisLink = this;
   
   var req = new XMLHttpRequest();
 
-  req.open("get", "/hey_there");
+  req.open("get", "/" + get_text_from_input_field("word"));
 
   req.addEventListener("load", function(){    
-    thisLink.innerText = this.response;
+    thisLink.innerHTML = this.response;
   });
 
   req.send();
