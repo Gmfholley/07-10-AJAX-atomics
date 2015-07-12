@@ -4,6 +4,11 @@ get "/" do
   erb :"main/homepage"
 end
 
+get "tasks/create_new" do 
+  
+end
+
+
 get "/tasks/:method/:task_id" do
   task_id = params["task_id"].to_i
   @task = Task.find(task_id)
