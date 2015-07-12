@@ -17,6 +17,14 @@ class Task
     end
   end
   
+  def done_in_english
+    if @done
+      "done"
+    else
+      "undone"
+    end
+  end
+  
   # Mark a task as "done" in the database.
   def mark_as_done
     CONNECTION.execute("UPDATE tasks SET done = 1 WHERE id = #{self.id}")

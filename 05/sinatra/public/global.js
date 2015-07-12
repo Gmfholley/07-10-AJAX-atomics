@@ -4,7 +4,6 @@
 function id_of_link(link){
   return link.getAttribute("data-task-id");
 }
-
 // returns whether the link is done or undone
 //
 // returns a String of the href Attribute
@@ -18,7 +17,7 @@ function mark_done_or_undone(event){
   
   var link = this;
   var database_id = id_of_link(this);
-  var task = document.getElementById("task" + database_id);
+  var task_li = document.getElementById("task" + database_id);
   var http_url = (done_or_undone(link));
 
   var done_request = new XMLHttpRequest();
@@ -30,7 +29,7 @@ function mark_done_or_undone(event){
   });
   
   done_request.addEventListener("load", function(){
-    task.classList.toggle("finished");
+    task_li.classList.toggle("finished");
     link.innerHTML = "Mark As " + this.response;
     link.setAttribute("href", ("/tasks/mark_as_" + this.response + "/" + database_id));
   });

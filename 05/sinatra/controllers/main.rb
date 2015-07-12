@@ -1,24 +1,15 @@
-
-
-
 get "/" do
   @tasks = Task.all
   
   erb :"main/homepage"
 end
 
-get "/tasks/mark_as_done/:task_id" do
+get "/tasks/:method/:task_id" do
   task_id = params["task_id"].to_i
   @task = Task.find(task_id)
-  @task.mark_as_done
-  
-  return "undone"
-end
-
-get "/tasks/mark_as_undone/:task_id" do
-  task_id = params["task_id"].to_i
-  @task = Task.find(task_id)
-  @task.mark_as_undone
-  
-  return "done"
+  @next_response = @task.done_in_english
+  # run the method on the task
+  @task.method(params["method"]).call
+  # return what the next anchor command would be, not this one
+  return @next_response
 end
