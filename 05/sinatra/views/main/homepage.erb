@@ -1,4 +1,4 @@
-<ul>
+<ul id="task-list">
   <% @tasks.each do |task| %>
     <li class="task<%= " finished" if task.done %>" id="task<%= task.id %>">
       <%= task.content %>
